@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Victor
+ * @author cetecom
  */
 @Entity
 @Table(name = "ARRIENDO")
@@ -36,8 +36,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Arriendo.findByDeposito", query = "SELECT a FROM Arriendo a WHERE a.deposito = :deposito"),
     @NamedQuery(name = "Arriendo.findByPagado", query = "SELECT a FROM Arriendo a WHERE a.pagado = :pagado"),
     @NamedQuery(name = "Arriendo.findByIniciorenta", query = "SELECT a FROM Arriendo a WHERE a.iniciorenta = :iniciorenta"),
-    @NamedQuery(name = "Arriendo.findByFinrenta", query = "SELECT a FROM Arriendo a WHERE a.finrenta = :finrenta")})
+    @NamedQuery(name = "Arriendo.findByFinrenta", query = "SELECT a FROM Arriendo a WHERE a.finrenta = :finrenta"),
+    @NamedQuery(name = "Arriendo.findByNumempleado", query = "SELECT a FROM Arriendo a WHERE a.numempleado = :numempleado")})
 public class Arriendo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
@@ -63,6 +65,9 @@ public class Arriendo implements Serializable {
     @Column(name = "FINRENTA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date finrenta;
+    @Basic(optional = false)
+    @Column(name = "NUMEMPLEADO")
+    private int numempleado;
     @JoinColumn(name = "NUMCLIENTE", referencedColumnName = "NUMCLIENTE")
     @ManyToOne(optional = false)
     private Cliente numcliente;
@@ -77,13 +82,14 @@ public class Arriendo implements Serializable {
         this.numarriendo = numarriendo;
     }
 
-    public Arriendo(BigDecimal numarriendo, double renta, String formapago, Character pagado, Date iniciorenta, Date finrenta) {
+    public Arriendo(BigDecimal numarriendo, double renta, String formapago, Character pagado, Date iniciorenta, Date finrenta, int numempleado) {
         this.numarriendo = numarriendo;
         this.renta = renta;
         this.formapago = formapago;
         this.pagado = pagado;
         this.iniciorenta = iniciorenta;
         this.finrenta = finrenta;
+        this.numempleado = numempleado;
     }
 
     public BigDecimal getNumarriendo() {
@@ -140,6 +146,14 @@ public class Arriendo implements Serializable {
 
     public void setFinrenta(Date finrenta) {
         this.finrenta = finrenta;
+    }
+
+    public int getNumempleado() {
+        return numempleado;
+    }
+
+    public void setNumempleado(int numempleado) {
+        this.numempleado = numempleado;
     }
 
     public Cliente getNumcliente() {

@@ -247,4 +247,15 @@ public class OficinaJpaController implements Serializable {
         }
     }
     
+    public Oficina buscarOficinaNumero(String numero) {
+        try {
+            Query consulta = this.getEntityManager().createNamedQuery("Oficina.findByNumoficina");
+            Short numerito = Short.parseShort(numero);
+            consulta.setParameter("numoficina", numerito);
+            return (Oficina)consulta.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
 }

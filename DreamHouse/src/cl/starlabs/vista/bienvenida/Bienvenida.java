@@ -8,6 +8,7 @@ import cl.starlabs.modelo.Empleado;
 import cl.starlabs.vista.clientes.AgregarCliente;
 import cl.starlabs.vista.clientes.ListarClientes;
 import cl.starlabs.vista.empleados.AgregarEmpleado;
+import cl.starlabs.vista.empleados.ListarEmpleados;
 import cl.starlabs.vista.login.Login;
 import java.awt.Toolkit;
 /**
@@ -49,12 +50,13 @@ public class Bienvenida extends javax.swing.JFrame {
         clientesListar = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         EmpleadoAgregar = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        menuEmpleadosListar = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -125,10 +127,15 @@ public class Bienvenida extends javax.swing.JFrame {
         });
         jMenu3.add(EmpleadoAgregar);
 
-        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/group_link.png"))); // NOI18N
-        jMenuItem7.setText("Lista de Empleados");
-        jMenu3.add(jMenuItem7);
+        menuEmpleadosListar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_MASK));
+        menuEmpleadosListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/group_link.png"))); // NOI18N
+        menuEmpleadosListar.setText("Lista de Empleados");
+        menuEmpleadosListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEmpleadosListarActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuEmpleadosListar);
 
         jMenuBar1.add(jMenu3);
 
@@ -151,6 +158,10 @@ public class Bienvenida extends javax.swing.JFrame {
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/find.png"))); // NOI18N
         jMenuItem10.setText("Buscar...");
         jMenu5.add(jMenuItem10);
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/house.png"))); // NOI18N
+        jMenuItem1.setText("Registrar Nueva Propiedad");
+        jMenu5.add(jMenuItem1);
 
         jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/building_go.png"))); // NOI18N
         jMenuItem11.setText("Lista de Propiedades");
@@ -201,6 +212,11 @@ public class Bienvenida extends javax.swing.JFrame {
         agemp.setAlwaysOnTop(true);
     }//GEN-LAST:event_EmpleadoAgregarActionPerformed
 
+    private void menuEmpleadosListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEmpleadosListarActionPerformed
+        ListarEmpleados lem = new ListarEmpleados();
+        lem.setVisible(true);
+    }//GEN-LAST:event_menuEmpleadosListarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -245,12 +261,13 @@ public class Bienvenida extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu menuCliente;
+    private javax.swing.JMenuItem menuEmpleadosListar;
     private javax.swing.JMenu menuSesion;
     private javax.swing.JMenuItem sesionExit;
     private javax.swing.JMenuItem sesionLogout;

@@ -11,6 +11,7 @@ import cl.starlabs.controladores.OficinaJpaController;
 import cl.starlabs.modelo.Cargo;
 import cl.starlabs.modelo.Empleado;
 import cl.starlabs.modelo.Oficina;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -29,7 +30,7 @@ public class AgregarEmpleado extends javax.swing.JFrame {
     public AgregarEmpleado() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+        this.setAlwaysOnTop(false);
         //Rellenando comboboxs (dropdown lists)
         //estableciendo conexion con db mediante persistencia
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
@@ -400,9 +401,15 @@ public class AgregarEmpleado extends javax.swing.JFrame {
                                                     //todo correcto... guardar
                                                     try {
                                                         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
-                                                        Empleado e = new Empleado(Integer.parseInt(numeroEmpleado), oficina, nombres, apaterno, amaterno, sexo, fecNac, Integer.parseInt(salario), porcentaje);
+                                                        BigDecimal identificador = new EmpleadoJpaController(emf).buscarUltimo();
+                                                        Cargo c = new CargoJpaController(emf).buscarPorNombre(cargo);
+                                                        JOptionPane.showConfirmDialog(null, oficina);
+                                                        Oficina of = new OficinaJpaController(emf).buscarOficinaNumero(oficina);
+                                                        Empleado e = new Empleado(identificador, Integer.parseInt(numeroEmpleado), oficina, nombres, apaterno, amaterno, sexo, fecNac, Integer.parseInt(salario), porcentaje, c, of);
                                                         new EmpleadoJpaController(emf).create(e);
+                                                        this.dispose();
                                                         JOptionPane.showMessageDialog(null, "Empleado registrado con éxito");
+                                                        
                                                         this.dispose();
                                                     }catch(Exception e) {
                                                         JOptionPane.showMessageDialog(null, "Error Inesperado: El servidor dijo: "+e.getMessage());

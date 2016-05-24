@@ -3,16 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Victor%20Manuel%20Araya/Dropbox/DUOC/2016/PRIMER%20SEMESTRE/Programación%20de%20Bases%20de%20Datos%20Oracle/Entregables/avances%20victor/DreamHouse/src/cl/starlabs/modelo/Empleado.java</file>
-            <file>file:/C:/Users/Victor%20Manuel%20Araya/Dropbox/DUOC/2016/PRIMER%20SEMESTRE/Programación%20de%20Bases%20de%20Datos%20Oracle/Entregables/avances%20victor/DreamHouse/src/cl/starlabs/modelo/Cliente.java</file>
-            <file>file:/C:/Users/Victor%20Manuel%20Araya/Dropbox/DUOC/2016/PRIMER%20SEMESTRE/Programación%20de%20Bases%20de%20Datos%20Oracle/Entregables/avances%20victor/DreamHouse/src/cl/starlabs/controladores/ClienteJpaController.java</file>
-            <file>file:/C:/Users/Victor%20Manuel%20Araya/Dropbox/DUOC/2016/PRIMER%20SEMESTRE/Programación%20de%20Bases%20de%20Datos%20Oracle/Entregables/avances%20victor/DreamHouse/src/cl/starlabs/controladores/OficinaJpaController.java</file>
-            <file>file:/C:/Users/Victor%20Manuel%20Araya/Dropbox/DUOC/2016/PRIMER%20SEMESTRE/Programación%20de%20Bases%20de%20Datos%20Oracle/Entregables/avances%20victor/DreamHouse/src/cl/starlabs/controladores/CargoJpaController.java</file>
-            <file>file:/C:/Users/Victor%20Manuel%20Araya/Dropbox/DUOC/2016/PRIMER%20SEMESTRE/Programación%20de%20Bases%20de%20Datos%20Oracle/Entregables/avances%20victor/DreamHouse/src/cl/starlabs/vista/empleados/DetalleEmpleado.java</file>
-            <file>file:/C:/Users/Victor%20Manuel%20Araya/Dropbox/DUOC/2016/PRIMER%20SEMESTRE/Programación%20de%20Bases%20de%20Datos%20Oracle/Entregables/avances%20victor/DreamHouse/src/cl/starlabs/vista/clientes/ListarClientes.java</file>
-            <file>file:/C:/Users/Victor%20Manuel%20Araya/Dropbox/DUOC/2016/PRIMER%20SEMESTRE/Programación%20de%20Bases%20de%20Datos%20Oracle/Entregables/avances%20victor/DreamHouse/src/cl/starlabs/vista/bienvenida/Bienvenida.java</file>
-            <file>file:/C:/Users/Victor%20Manuel%20Araya/Dropbox/DUOC/2016/PRIMER%20SEMESTRE/Programación%20de%20Bases%20de%20Datos%20Oracle/Entregables/avances%20victor/DreamHouse/src/cl/starlabs/vista/empleados/AgregarEmpleado.java</file>
-            <file>file:/C:/Users/Victor%20Manuel%20Araya/Dropbox/DUOC/2016/PRIMER%20SEMESTRE/Programación%20de%20Bases%20de%20Datos%20Oracle/Entregables/avances%20victor/DreamHouse/src/cl/starlabs/vista/clientes/AgregarCliente.java</file>
+            <file>file:/C:/Users/cetecom/Downloads/DreamHouse-master/DreamHouse-master/DreamHouse/src/cl/starlabs/vista/bienvenida/Bienvenida.java</file>
+            <file>file:/C:/Users/cetecom/Downloads/DreamHouse-master/DreamHouse-master/DreamHouse/src/cl/starlabs/vista/empleados/ListarEmpleados.java</file>
+            <file>file:/C:/Users/cetecom/Downloads/DreamHouse-master/DreamHouse-master/DreamHouse/src/cl/starlabs/vista/empleados/AgregarEmpleado.java</file>
         </group>
     </open-files>
 </project-private>

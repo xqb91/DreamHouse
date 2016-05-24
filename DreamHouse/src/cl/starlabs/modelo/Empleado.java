@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empleado.findByNumempleado", query = "SELECT e FROM Empleado e WHERE e.numempleado = :numempleado"),
     @NamedQuery(name = "Empleado.findByContrasena", query = "SELECT e FROM Empleado e WHERE e.contrasena = :contrasena"),
     @NamedQuery(name = "Empleado.findByNombre", query = "SELECT e FROM Empleado e WHERE e.nombre = :nombre"),
+    @NamedQuery(name = "Empleado.buscarUltimo", query = "SELECT e FROM Empleado e ORDER BY e.id DESC"),
     @NamedQuery(name = "Empleado.findByApaterno", query = "SELECT e FROM Empleado e WHERE e.apaterno = :apaterno"),
     @NamedQuery(name = "Empleado.findByAmaterno", query = "SELECT e FROM Empleado e WHERE e.amaterno = :amaterno"),
     @NamedQuery(name = "Empleado.findBySexo", query = "SELECT e FROM Empleado e WHERE e.sexo = :sexo"),
@@ -102,7 +103,7 @@ public class Empleado implements Serializable {
         this.id = id;
     }
 
-    public Empleado(BigDecimal id, int numempleado, String contrasena, String nombre, String apaterno, String amaterno, Character sexo, Date fechnac, double salario, double porcentaje) {
+    public Empleado(BigDecimal id, int numempleado, String contrasena, String nombre, String apaterno, String amaterno, Character sexo, Date fechnac, double salario, double porcentaje, Cargo c, Oficina of) {
         this.id = id;
         this.numempleado = numempleado;
         this.contrasena = contrasena;
@@ -113,6 +114,8 @@ public class Empleado implements Serializable {
         this.fechnac = fechnac;
         this.salario = salario;
         this.porcentaje = porcentaje;
+        this.cargo = c;
+        this.numoficina = of;
     }
     
     public Empleado(int numempleado, String contrasena, String nombre, String apaterno, String amaterno, Character sexo, Date fechnac, double salario, double porcentaje) {

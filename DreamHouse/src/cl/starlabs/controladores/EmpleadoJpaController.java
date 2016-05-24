@@ -428,4 +428,16 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
     
+    public BigDecimal buscarUltimo() {
+        try {
+            Query consulta = this.getEntityManager().createNamedQuery("Empleado.buscarUltimo");
+            consulta.setFirstResult(0);
+            BigDecimal n = ((Empleado)consulta.getSingleResult()).getId();
+            Integer n2 = Integer.parseInt(n.toString());
+            n2++;
+            return new BigDecimal(n2+"");
+        } catch (Exception e) {
+            return new BigDecimal("1");
+        }
+    }
 }

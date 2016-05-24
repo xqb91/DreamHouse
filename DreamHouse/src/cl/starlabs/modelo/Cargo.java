@@ -105,5 +105,5 @@ public class Cargo implements Serializable {
     public String toString() {
         return "cl.starlabs.modelo.Cargo[ id=" + id + " ]";
     }
-    
+ 
 }

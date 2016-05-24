@@ -216,5 +216,15 @@ public class CargoJpaController implements Serializable {
             return null;
         }
     }
-    
+
+    public Cargo buscarPorNombre(String nombreCargo) {
+        try {
+            Query consulta = getEntityManager().createNamedQuery("Cargo.findByNombre");
+            consulta.setParameter("nombre", nombreCargo);
+            return (Cargo)consulta.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+   
 }
