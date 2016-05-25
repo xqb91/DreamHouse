@@ -5,6 +5,8 @@
  */
 package cl.starlabs.vista.bienvenida;
 import cl.starlabs.modelo.Empleado;
+import cl.starlabs.vista.calendario.Calendario;
+import cl.starlabs.vista.calendario.NuevoEvento;
 import cl.starlabs.vista.clientes.AgregarCliente;
 import cl.starlabs.vista.clientes.ListarClientes;
 import cl.starlabs.vista.empleados.AgregarEmpleado;
@@ -52,8 +54,8 @@ public class Bienvenida extends javax.swing.JFrame {
         EmpleadoAgregar = new javax.swing.JMenuItem();
         menuEmpleadosListar = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        agendaCalendario = new javax.swing.JMenuItem();
+        agendaNuevoEvento = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -142,13 +144,23 @@ public class Bienvenida extends javax.swing.JFrame {
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/calendar.gif"))); // NOI18N
         jMenu4.setText("Agenda");
 
-        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/calendar_view_day.png"))); // NOI18N
-        jMenuItem8.setText("Calendario");
-        jMenu4.add(jMenuItem8);
+        agendaCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/calendar_view_day.png"))); // NOI18N
+        agendaCalendario.setText("Calendario");
+        agendaCalendario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agendaCalendarioActionPerformed(evt);
+            }
+        });
+        jMenu4.add(agendaCalendario);
 
-        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/calendar_add.png"))); // NOI18N
-        jMenuItem9.setText("Nuevo Evento");
-        jMenu4.add(jMenuItem9);
+        agendaNuevoEvento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/calendar_add.png"))); // NOI18N
+        agendaNuevoEvento.setText("Nuevo Evento");
+        agendaNuevoEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agendaNuevoEventoActionPerformed(evt);
+            }
+        });
+        jMenu4.add(agendaNuevoEvento);
 
         jMenuBar1.add(jMenu4);
 
@@ -217,6 +229,16 @@ public class Bienvenida extends javax.swing.JFrame {
         lem.setVisible(true);
     }//GEN-LAST:event_menuEmpleadosListarActionPerformed
 
+    private void agendaNuevoEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agendaNuevoEventoActionPerformed
+        NuevoEvento ne = new NuevoEvento();
+        ne.setVisible(true);
+    }//GEN-LAST:event_agendaNuevoEventoActionPerformed
+
+    private void agendaCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agendaCalendarioActionPerformed
+        Calendario cal = new Calendario();
+        cal.setVisible(true);
+    }//GEN-LAST:event_agendaCalendarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -254,6 +276,8 @@ public class Bienvenida extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem EmpleadoAgregar;
+    private javax.swing.JMenuItem agendaCalendario;
+    private javax.swing.JMenuItem agendaNuevoEvento;
     private javax.swing.JMenuItem clienteAgregar;
     private javax.swing.JMenuItem clientesListar;
     private javax.swing.JLabel jLabel1;
@@ -264,8 +288,6 @@ public class Bienvenida extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu menuCliente;
     private javax.swing.JMenuItem menuEmpleadosListar;
     private javax.swing.JMenu menuSesion;
