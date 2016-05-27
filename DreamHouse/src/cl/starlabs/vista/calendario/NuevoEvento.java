@@ -9,7 +9,12 @@ import cl.starlabs.modelo.Cliente;
 import cl.starlabs.modelo.Empleado;
 import cl.starlabs.modelo.Propiedad;
 import cl.starlabs.vista.utilidades.UtilidadBuscarCliente;
+import cl.starlabs.vista.utilidades.UtilidadBuscarPropiedad;
+import cl.starlabs.vista.utilidades.UtilidadesBuscarEmpleado;
 import java.awt.GraphicsConfiguration;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.UIManager;
 
 /**
@@ -37,8 +42,10 @@ public class NuevoEvento extends javax.swing.JFrame {
         this.pro = pro;
         this.emp = emp;
         if(cli != null) { txtCliente.setText(cli.getNombre()+" "+cli.getApaterno()+" "+cli.getAmaterno()); }
-        if(pro != null) { txtPropiedad.setText(pro.getNumpropiedad()+": "+pro.getTipo().getNombre()); }
-        if(emp != null) { txtCliente.setText(emp.getNombre()+" "+emp.getApaterno()+" "+emp.getAmaterno()); }
+        if(pro != null) { txtPropiedad.setText(pro.getNumpropiedad()+": "+pro.getCalle()); }
+        if(emp != null) { txtEmpleado.setText(emp.getNombre()+" "+emp.getApaterno()+" "+emp.getAmaterno()); }
+        Calendar fechaHoy = new GregorianCalendar();
+        txtFechaAgendamiento.setDate(fechaHoy.getTime());
     }
     
     
@@ -86,8 +93,14 @@ public class NuevoEvento extends javax.swing.JFrame {
 
         jLabel5.setText("Fecha a agendar visita");
 
+        txtCliente.setEditable(false);
+
+        txtPropiedad.setEditable(false);
+
+        txtEmpleado.setEditable(false);
+
         btnBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/find.png"))); // NOI18N
-        btnBuscarCliente.setText("Buscar");
+        btnBuscarCliente.setText("Buscar Cliente");
         btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarClienteActionPerformed(evt);
@@ -95,10 +108,20 @@ public class NuevoEvento extends javax.swing.JFrame {
         });
 
         btnBuscarPropiedad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/find.png"))); // NOI18N
-        btnBuscarPropiedad.setText("Buscar");
+        btnBuscarPropiedad.setText("Buscar Propiedad");
+        btnBuscarPropiedad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPropiedadActionPerformed(evt);
+            }
+        });
 
         btnBuscarEmpelado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/find.png"))); // NOI18N
-        btnBuscarEmpelado.setText("Buscar");
+        btnBuscarEmpelado.setText("Buscar Empleado");
+        btnBuscarEmpelado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarEmpeladoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,13 +146,13 @@ public class NuevoEvento extends javax.swing.JFrame {
                             .addComponent(txtPropiedad)
                             .addComponent(txtEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
                             .addComponent(txtCliente))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBuscarCliente)
-                            .addComponent(btnBuscarPropiedad)
-                            .addComponent(btnBuscarEmpelado)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscarPropiedad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscarEmpelado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel4))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,6 +232,18 @@ public class NuevoEvento extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnBuscarPropiedadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPropiedadActionPerformed
+        UtilidadBuscarPropiedad ubp = new UtilidadBuscarPropiedad(cli, pro, emp);
+        ubp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBuscarPropiedadActionPerformed
+
+    private void btnBuscarEmpeladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEmpeladoActionPerformed
+        UtilidadesBuscarEmpleado ute = new UtilidadesBuscarEmpleado(cli, pro, emp);
+        ute.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBuscarEmpeladoActionPerformed
 
     /**
      * @param args the command line arguments

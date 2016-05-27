@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Arriendo.findByPagado", query = "SELECT a FROM Arriendo a WHERE a.pagado = :pagado"),
     @NamedQuery(name = "Arriendo.findByIniciorenta", query = "SELECT a FROM Arriendo a WHERE a.iniciorenta = :iniciorenta"),
     @NamedQuery(name = "Arriendo.findByFinrenta", query = "SELECT a FROM Arriendo a WHERE a.finrenta = :finrenta"),
-    @NamedQuery(name = "Arriendo.findByNumempleado", query = "SELECT a FROM Arriendo a WHERE a.numempleado = :numempleado")})
+    })
 public class Arriendo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,9 +65,6 @@ public class Arriendo implements Serializable {
     @Column(name = "FINRENTA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date finrenta;
-    @Basic(optional = false)
-    @Column(name = "NUMEMPLEADO")
-    private int numempleado;
     @JoinColumn(name = "NUMCLIENTE", referencedColumnName = "NUMCLIENTE")
     @ManyToOne(optional = false)
     private Cliente numcliente;
@@ -82,14 +79,13 @@ public class Arriendo implements Serializable {
         this.numarriendo = numarriendo;
     }
 
-    public Arriendo(BigDecimal numarriendo, double renta, String formapago, Character pagado, Date iniciorenta, Date finrenta, int numempleado) {
+    public Arriendo(BigDecimal numarriendo, double renta, String formapago, Character pagado, Date iniciorenta, Date finrenta) {
         this.numarriendo = numarriendo;
         this.renta = renta;
         this.formapago = formapago;
         this.pagado = pagado;
         this.iniciorenta = iniciorenta;
         this.finrenta = finrenta;
-        this.numempleado = numempleado;
     }
 
     public BigDecimal getNumarriendo() {
@@ -148,13 +144,6 @@ public class Arriendo implements Serializable {
         this.finrenta = finrenta;
     }
 
-    public int getNumempleado() {
-        return numempleado;
-    }
-
-    public void setNumempleado(int numempleado) {
-        this.numempleado = numempleado;
-    }
 
     public Cliente getNumcliente() {
         return numcliente;

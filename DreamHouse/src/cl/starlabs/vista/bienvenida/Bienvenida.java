@@ -12,6 +12,10 @@ import cl.starlabs.vista.clientes.ListarClientes;
 import cl.starlabs.vista.empleados.AgregarEmpleado;
 import cl.starlabs.vista.empleados.ListarEmpleados;
 import cl.starlabs.vista.login.Login;
+import cl.starlabs.vista.propiedades.ListarPropiedades;
+import cl.starlabs.vista.propiedades.RegistrarPropiedad;
+import cl.starlabs.vista.reportes.BuscarPropiedad;
+import cl.starlabs.vista.utilidades.UtilidadBuscarPropietario;
 import java.awt.Toolkit;
 /**
  *
@@ -28,9 +32,10 @@ public class Bienvenida extends javax.swing.JFrame {
         initComponents();
         this.e = e;
         //this.setLocationRelativeTo(null);
-        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        //this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         this.setTitle("StarLabs DreamHome | Conectado como: "+e.getNombre().toLowerCase()+" "+e.getApaterno().toLowerCase()+" "+e.getAmaterno().toLowerCase());
         menuSesion.setText("Sesión de "+e.getNombre().toLowerCase());
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -42,6 +47,7 @@ public class Bienvenida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuSesion = new javax.swing.JMenu();
@@ -57,9 +63,13 @@ public class Bienvenida extends javax.swing.JFrame {
         agendaCalendario = new javax.swing.JMenuItem();
         agendaNuevoEvento = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        menuBuscarPorPropietario = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
+        ListarPropiedades = new javax.swing.JMenuItem();
+        reporteReportepropiedades = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -167,19 +177,48 @@ public class Bienvenida extends javax.swing.JFrame {
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/building.png"))); // NOI18N
         jMenu5.setText("Propiedades");
 
-        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/find.png"))); // NOI18N
-        jMenuItem10.setText("Buscar...");
-        jMenu5.add(jMenuItem10);
+        menuBuscarPorPropietario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/find.png"))); // NOI18N
+        menuBuscarPorPropietario.setText("Buscar por propietario");
+        menuBuscarPorPropietario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBuscarPorPropietarioActionPerformed(evt);
+            }
+        });
+        jMenu5.add(menuBuscarPorPropietario);
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/house.png"))); // NOI18N
         jMenuItem1.setText("Registrar Nueva Propiedad");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem1);
 
-        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/building_go.png"))); // NOI18N
-        jMenuItem11.setText("Lista de Propiedades");
-        jMenu5.add(jMenuItem11);
+        ListarPropiedades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/building_go.png"))); // NOI18N
+        ListarPropiedades.setText("Lista de Propiedades");
+        ListarPropiedades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarPropiedadesActionPerformed(evt);
+            }
+        });
+        jMenu5.add(ListarPropiedades);
 
         jMenuBar1.add(jMenu5);
+
+        reporteReportepropiedades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/book.png"))); // NOI18N
+        reporteReportepropiedades.setText("Reportes");
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/building_key.png"))); // NOI18N
+        jMenuItem2.setText("Reporte de Propiedades");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        reporteReportepropiedades.add(jMenuItem2);
+
+        jMenuBar1.add(reporteReportepropiedades);
 
         setJMenuBar(jMenuBar1);
 
@@ -187,11 +226,15 @@ public class Bienvenida extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 179, Short.MAX_VALUE))
         );
 
         pack();
@@ -239,6 +282,26 @@ public class Bienvenida extends javax.swing.JFrame {
         cal.setVisible(true);
     }//GEN-LAST:event_agendaCalendarioActionPerformed
 
+    private void menuBuscarPorPropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBuscarPorPropietarioActionPerformed
+        UtilidadBuscarPropietario ubp = new UtilidadBuscarPropietario();
+        ubp.setVisible(true);
+    }//GEN-LAST:event_menuBuscarPorPropietarioActionPerformed
+
+    private void ListarPropiedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarPropiedadesActionPerformed
+        ListarPropiedades lpp = new ListarPropiedades();
+        lpp.setVisible(true);
+    }//GEN-LAST:event_ListarPropiedadesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        RegistrarPropiedad rpp = new RegistrarPropiedad(e);
+        rpp.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        BuscarPropiedad rbp = new BuscarPropiedad();
+        rbp.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -276,21 +339,24 @@ public class Bienvenida extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem EmpleadoAgregar;
+    private javax.swing.JMenuItem ListarPropiedades;
     private javax.swing.JMenuItem agendaCalendario;
     private javax.swing.JMenuItem agendaNuevoEvento;
     private javax.swing.JMenuItem clienteAgregar;
     private javax.swing.JMenuItem clientesListar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem menuBuscarPorPropietario;
     private javax.swing.JMenu menuCliente;
     private javax.swing.JMenuItem menuEmpleadosListar;
     private javax.swing.JMenu menuSesion;
+    private javax.swing.JMenu reporteReportepropiedades;
     private javax.swing.JMenuItem sesionExit;
     private javax.swing.JMenuItem sesionLogout;
     // End of variables declaration//GEN-END:variables

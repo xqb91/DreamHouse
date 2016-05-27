@@ -24,6 +24,7 @@ import cl.starlabs.modelo.Comision;
 import cl.starlabs.modelo.Agenda;
 import cl.starlabs.modelo.Propiedad;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -454,6 +455,66 @@ public class PropiedadJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+    public List<Propiedad> listarPorCiudad(BigInteger ciudad) {
+        try {
+            Query consulta = getEntityManager().createNamedQuery("Propiedad.findByCiudad");
+            consulta.setParameter("ciudad", ciudad);
+            return consulta.getResultList();
+        }catch(Exception e) {
+            return null;
+        }
+    }
+    
+    public Propiedad buscarPropiedadPorNumero(BigInteger numero) {
+        try {
+            Query consulta = getEntityManager().createNamedQuery("Propiedad.findByNumpropiedad");
+            consulta.setParameter("numpropiedad", numero);
+            consulta.setMaxResults(1);
+            return (Propiedad)consulta.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public List<Propiedad> listar() {
+        try {
+            Query consulta = getEntityManager().createNamedQuery("Propiedad.findAll");
+            return consulta.getResultList();
+        }catch(Exception e)
+        {
+            return null;
+        }
+    }
+    
+    public List<Propiedad> listarPropiedadPorRutPropietario(String rut) {
+        try {
+            Propietario pro = new PropietarioJpaController(emf).buscarPropietarioPorRut(rut.split("-")[0]);
+            if(pro == null)
+            {
+                return null;
+            }else{
+                Query consulta = getEntityManager().createNamedQuery("Propiedad.buscarPorPropietario");
+                consulta.setParameter("propietario", pro);
+                return consulta.getResultList();
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public BigDecimal ultimoId()
+    {
+        try {
+            Query consulta = getEntityManager().createNamedQuery("Propiedad.ultimo");
+            consulta.setMaxResults(1);
+            int numero = Integer.parseInt(((Propiedad)consulta.getSingleResult()).getNumpropiedad().toString());
+            numero++;
+            return new BigDecimal(numero);
+        } catch (Exception e) {
+            return null;
         }
     }
     

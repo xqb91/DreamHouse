@@ -20,7 +20,7 @@
     <class>cl.starlabs.modelo.Totpropempleado</class>
     <class>cl.starlabs.modelo.Visita</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@rurbusproyect.no-ip.org:1521:XE"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
       <property name="javax.persistence.jdbc.user" value="victor"/>
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
       <property name="javax.persistence.jdbc.password" value="victor"/>

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package cl.starlabs.modelo;
-
+ 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -33,11 +33,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Propiedad.findAll", query = "SELECT p FROM Propiedad p"),
+    @NamedQuery(name = "Propiedad.ultimo", query = "SELECT p FROM Propiedad p ORDER BY p.numpropiedad DESC"),
     @NamedQuery(name = "Propiedad.findByNumpropiedad", query = "SELECT p FROM Propiedad p WHERE p.numpropiedad = :numpropiedad"),
     @NamedQuery(name = "Propiedad.findByCiudad", query = "SELECT p FROM Propiedad p WHERE p.ciudad = :ciudad"),
     @NamedQuery(name = "Propiedad.findByCodigopostal", query = "SELECT p FROM Propiedad p WHERE p.codigopostal = :codigopostal"),
     @NamedQuery(name = "Propiedad.findByHab", query = "SELECT p FROM Propiedad p WHERE p.hab = :hab"),
     @NamedQuery(name = "Propiedad.findByRenta", query = "SELECT p FROM Propiedad p WHERE p.renta = :renta"),
+    @NamedQuery(name = "Propiedad.buscarPorPropietario", query = "SELECT p FROM Propiedad p WHERE p.numpropietario = :propietario"),
     @NamedQuery(name = "Propiedad.findByDisponible", query = "SELECT p FROM Propiedad p WHERE p.disponible = :disponible")})
 public class Propiedad implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -96,6 +98,19 @@ public class Propiedad implements Serializable {
         this.hab = hab;
         this.renta = renta;
         this.disponible = disponible;
+    }
+    
+    public Propiedad(BigDecimal numpropiedad, String calle, BigInteger ciudad, String codigoPostal, BigInteger hab, double renta, Character disponible, Empleado empleado, Propietario propietario, Tipopropiedades tipo) {
+        this.numpropiedad = numpropiedad;
+        this.calle = calle;
+        this.codigopostal = codigoPostal;
+        this.ciudad = ciudad;
+        this.hab = hab;
+        this.renta = renta;
+        this.disponible = disponible;
+        this.numempleado = empleado;
+        this.numpropietario = propietario;
+        this.tipo = tipo;
     }
 
     public BigDecimal getNumpropiedad() {

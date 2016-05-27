@@ -5,10 +5,16 @@
  */
 package cl.starlabs.vista.utilidades;
 
+import cl.starlabs.controladores.CiudadJpaController;
+import cl.starlabs.controladores.PropiedadJpaController;
+import cl.starlabs.modelo.Ciudad;
 import cl.starlabs.modelo.Cliente;
 import cl.starlabs.modelo.Empleado;
 import cl.starlabs.modelo.Propiedad;
+import cl.starlabs.vista.calendario.NuevoEvento;
 import java.awt.GraphicsConfiguration;
+import java.awt.event.MouseEvent;
+import java.math.BigInteger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.UIManager;
@@ -28,6 +34,11 @@ public class UtilidadBuscarPropiedad extends javax.swing.JFrame {
         initComponents();
         emf = Persistence.createEntityManagerFactory("PU");
         this.setLocationRelativeTo(null);
+        //rellenando combobox
+        for(Ciudad c : new CiudadJpaController(emf).listar())
+        {
+            cmbCiudad.addItem(c.getNombre());
+        }
     }
 
     public UtilidadBuscarPropiedad(Cliente cli, Propiedad pro ,Empleado emp) {
@@ -37,6 +48,12 @@ public class UtilidadBuscarPropiedad extends javax.swing.JFrame {
         this.pro = pro;
         this.emp = emp;
         this.setLocationRelativeTo(null);
+        
+        //rellenando combobox
+        for(Ciudad c : new CiudadJpaController(emf).listar())
+        {
+            cmbCiudad.addItem(c.getNombre());
+        }
     }
     
     
@@ -53,11 +70,9 @@ public class UtilidadBuscarPropiedad extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cmbCiudad = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        cmbPropietario = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         cmbPropiedad = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        btnSeleccionar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,16 +83,43 @@ public class UtilidadBuscarPropiedad extends javax.swing.JFrame {
         jLabel1.setText("Ciudad");
 
         cmbCiudad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione..." }));
-
-        jLabel2.setText("Propietario");
-
-        cmbPropietario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione..." }));
-        cmbPropietario.setEnabled(false);
+        cmbCiudad.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbCiudadItemStateChanged(evt);
+            }
+        });
+        cmbCiudad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cmbCiudadFocusGained(evt);
+            }
+        });
+        cmbCiudad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbCiudadMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cmbCiudadMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cmbCiudadMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cmbCiudadMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cmbCiudadMouseReleased(evt);
+            }
+        });
 
         jLabel3.setText("Propiedad");
 
         cmbPropiedad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione..." }));
         cmbPropiedad.setEnabled(false);
+        cmbPropiedad.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbPropiedadItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,21 +128,13 @@ public class UtilidadBuscarPropiedad extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(37, 37, 37)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(22, 22, 22)))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(cmbCiudad, 0, 267, Short.MAX_VALUE)
-                    .addComponent(cmbPropietario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbPropiedad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,20 +145,26 @@ public class UtilidadBuscarPropiedad extends javax.swing.JFrame {
                     .addComponent(cmbCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cmbPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/book_next.png"))); // NOI18N
-        jButton1.setText("Seleccionar");
-        jButton1.setEnabled(false);
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/starlabs/iconos/book_next.png"))); // NOI18N
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.setEnabled(false);
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,8 +176,8 @@ public class UtilidadBuscarPropiedad extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -147,13 +187,77 @@ public class UtilidadBuscarPropiedad extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(btnSeleccionar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbCiudadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCiudadMousePressed
+
+    }//GEN-LAST:event_cmbCiudadMousePressed
+
+    private void cmbCiudadMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCiudadMouseEntered
+
+    }//GEN-LAST:event_cmbCiudadMouseEntered
+
+    private void cmbCiudadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCiudadMouseClicked
+
+    }//GEN-LAST:event_cmbCiudadMouseClicked
+
+    private void cmbCiudadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbCiudadFocusGained
+
+    }//GEN-LAST:event_cmbCiudadFocusGained
+
+    private void cmbCiudadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCiudadMouseExited
+
+    }//GEN-LAST:event_cmbCiudadMouseExited
+
+    private void cmbCiudadMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCiudadMouseReleased
+
+    }//GEN-LAST:event_cmbCiudadMouseReleased
+
+    private void cmbCiudadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCiudadItemStateChanged
+        if(cmbCiudad.getSelectedItem().toString().compareToIgnoreCase("Seleccione...") != 0) {
+            //Obteniendo informacion de la ciudad seleccionada
+            Ciudad ci = new CiudadJpaController(emf).buscarPorNombre(cmbCiudad.getSelectedItem().toString());
+            //rellenando propiedades de la ciudad
+            cmbPropiedad.setEnabled(true);
+            for(Propiedad p : new PropiedadJpaController(emf).listarPorCiudad(ci.getIdciudad().toBigInteger())) {
+                for(int i=0; i<cmbPropiedad.getItemCount(); i++) {
+                    if(cmbPropiedad.getItemAt(i).toString().compareToIgnoreCase(p.getNumpropiedad()+": "+p.getCalle()) != 0) {
+                        cmbPropiedad.addItem(p.getNumpropiedad()+": "+p.getCalle());
+                    }
+                }
+            }
+        }else{
+            cmbPropiedad.setEnabled(false);
+        }
+    }//GEN-LAST:event_cmbCiudadItemStateChanged
+
+    private void cmbPropiedadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPropiedadItemStateChanged
+        if(cmbPropiedad.getSelectedItem().toString().compareToIgnoreCase("Seleccione...") != 0) {
+            btnSeleccionar.setEnabled(true);
+            pro = new PropiedadJpaController(emf).buscarPropiedadPorNumero(new BigInteger(cmbPropiedad.getSelectedItem().toString().split(":")[0]));
+        }else{
+            btnSeleccionar.setEnabled(false);
+            pro = null;
+        }
+    }//GEN-LAST:event_cmbPropiedadItemStateChanged
+
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        NuevoEvento ne = new NuevoEvento(cli, pro, emp);
+        this.dispose();
+        ne.setVisible(true);
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        NuevoEvento ne = new NuevoEvento(cli, pro, emp);
+        this.dispose();
+        ne.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,13 +295,11 @@ public class UtilidadBuscarPropiedad extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox cmbCiudad;
     private javax.swing.JComboBox cmbPropiedad;
-    private javax.swing.JComboBox cmbPropietario;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
